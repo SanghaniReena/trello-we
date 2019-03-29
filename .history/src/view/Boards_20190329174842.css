@@ -1,0 +1,7 @@
+.Sidebar{
+    width: 30%;
+    display:inline-block;
+}
+div Card:hover{
+    background-color: azure
+}

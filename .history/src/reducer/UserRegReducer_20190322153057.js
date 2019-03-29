@@ -1,0 +1,14 @@
+import { type } from "os";
+import {USER_REG} from "../action/UserRegAction"
+const INITIAL_STATE={
+    name:"",
+    email:"",
+    pw:"",
+    users:[]
+}
+const handleReg=(state=INITIAL_STATE,action)=>{
+    switch(type.action){
+        case USER_REG:
+
+    }
+}

@@ -1,0 +1,7 @@
+.Sidebar{
+    width: 30%;
+    display:inline-block;
+}
+.col-sm-4:hover{
+    background-color: azure
+}

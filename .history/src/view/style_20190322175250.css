@@ -1,0 +1,12 @@
+.RegForm{
+    display: block;
+    margin:auto;
+}
+.Form{
+    margin: auto;
+    width: 40%;
+}
+.Header{
+    text-align: center;
+    margin-top: 5%;
+}
