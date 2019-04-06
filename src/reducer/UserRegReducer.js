@@ -1,34 +1,58 @@
-import { FAILED, FETCH_USERS, LOGOUT, USER_LOGIN, USER_REG } from "../action/UserRegAction"
+import {
 
+
+
+FAILED,
+
+FETCH_USERS,
+
+LOGOUT,
+
+USER_LOGIN,
+
+USER_REG
+} from "../action/UserRegAction"
 
 const INITIAL_STATE = {
     users: [],
-    auth: false
+    auth: false,
+    iduser: "",
+    error_msg: "",
+    error_msgl: "",
+ 
+
 }
 const handleReg = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USER_REG:
-            {
+            {  
                 const newUser = state.users.concat(action.data);
-                return Object.assign({}, state, {
-                    users: newUser
-                });
+                return Object.assign({}, state, { users: newUser});
+
             }
         case USER_LOGIN:
             {
                 if (action.data.status === true) {
                     return Object.assign({}, state, {
                         auth: true,
+                        iduser: action.data.iduser,
+
                     });
                 } else {
                     return Object.assign({}, state, {
-                        auth: false
+                        auth: false,
+                        error_msgl: action.data.message
                     })
                 }
             }
         case LOGOUT:
             {
-                return Object.assign({}, state, { name: "", email: "", pw: "",auth:action.auth });
+                return Object.assign({}, state, {
+                    name: "",
+                    email: "",
+                    pw: "",
+                    auth: action.auth
+                });
             }
         case FETCH_USERS:
             {

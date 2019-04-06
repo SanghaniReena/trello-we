@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import Boards from './Boards';
 
 
-class Cards extends Component {
+class Teams extends Component {
     render() {
         return (
             <div>
-                <h1>from cards</h1>
+                <Boards></Boards>
             </div>
         );
     }
 }
 
-export default Cards;
+export default Teams;

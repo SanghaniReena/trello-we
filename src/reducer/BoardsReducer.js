@@ -5,21 +5,24 @@ const INITIAL_STATE = {
     boards: []
 }
 const handleBoards = (state = INITIAL_STATE, action) => {
+
     switch (action.type) {
-            case FETCH_BOARD:
+        case FETCH_BOARD:
             {
+                
+                console.log("re data ", action.data)
                 return Object.assign({}, state, { boards: action.data })
             }
-            case Add_BOARD:
+           
+        case Add_BOARD:
             {
                 const newdata = state.boards.concat(action.data);
                 return Object.assign({}, state, { boards: newdata })
             }
-            case FAILED:
+        case FAILED:
             {
                 return Object.assign({}, state, { error_msg: action.data.error_msg });
             }
-            
 
         default:
             return state;

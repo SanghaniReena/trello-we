@@ -1,7 +1,24 @@
-.Sidebar{
+.Sidebar {
     width: 30%;
-    display:inline-block;
+    display: inline-block;
 }
-.card1:hover{
-    background-color: azure
+
+div .card1:hover {
+    color:#026AA7;
+    font-variant-caps: titling-caps;
+    cursor: pointer;
+
+}
+div.divstyle {
+    background-color:"#F5F5F5";
+    padding:"4%";
+    font-weight:"bold";
+
+}
+ div.divstyle:hover {
+    background-color:#F5F5F5;	
+    padding: 4%;
+    padding-left: 5%;
+    padding-bottom: 4%;
+    cursor: pointer;
 }

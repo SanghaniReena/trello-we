@@ -1,42 +1,43 @@
 import * as authService from "../service/authService"
 
 
-export const Add_BOARD = "ADD_BOARD";
-export const FETCH_BOARD = "FETCH_BOARD";
+export const ADD_TEAM = "ADD_TEAM";
+export const FETCH_TEAM = "FETCH_TEAM";
 export const FAILED = "FAILED";
 
-export const AddBoard = (data) => {
-
+export const AddTeam = (data,history) => {
+    const id = localStorage.getItem("iduser")
     return (dispatch) => {
-        authService.boards(data)
+        authService.teams(data)
             .then((response) => {
 
                 if (response.status === 200) {
                    
                     dispatch({
-                        type: Add_BOARD,
+                        type: ADD_TEAM,
                         data: response.data,
                         signup:response.data.signup
                     });
                 }
+               // this.props.history.push("/"+1+"/teams")
+               history.push("/"+id+'/teams')
             })
             .catch((error) => {
                 if (error) {
                     dispatch({ type: FAILED, data: { error_msg: error.response.data.error } });
                 }
+               
             })
     }
 }
-export const FetchBoard = (id) => {
-
-
+export const FetchTeam = (id) => {
     return (dispatch) => {
-        authService.boardsname(id)
+        authService.teamsname(id)
             .then((response) => {
               
                 if (response.status === 200) {
                     dispatch({
-                        type: FETCH_BOARD,
+                        type: FETCH_TEAM,
                         data: response.data
                     });
                 }
@@ -48,25 +49,3 @@ export const FetchBoard = (id) => {
             })
     }
 }
-// export const FetchBoardi = (id,history) => {
-    
-//         return (dispatch) => {
-//             authService.boardname(id)
-//                 .then((response) => {
-//                     if (response.status === 200) {
-//                         dispatch({
-//                             type: FETCH_BOARD,
-//                             data: response.data
-//                         });
-//                     }
-//                     history.push('/board/'+id)
-//                 })
-//                 .catch((error) => {
-//                     if (error) {
-//                         dispatch({ type: FAILED, data: { error_msg: error.response.data.error } });
-//                     }
-//                 })
-//         }
-//     }
-
-
