@@ -9,7 +9,6 @@ const handleteams = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_TEAM:
             {
-               // console.log("re data ", action.data)
                 return Object.assign({}, state, { teams: action.data })
             }
            

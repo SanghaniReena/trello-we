@@ -1,41 +1,38 @@
 import * as authService from "../service/authService"
-export const ADD_TEAM = "ADD_TEAM";
-export const FETCH_TEAM = "FETCH_TEAM";
+
+export const Add_TBOARD = "ADD_TBOARD";
+export const FETCH_TBOARD = "FETCH_TBOARD";
 export const FAILED = "FAILED";
 
-export const AddTeam = (data, history) => {
-    const id = localStorage.getItem("iduser")
+export const AddTBoard = (data) => {
     return (dispatch) => {
-        authService.teams(data)
+        authService.teamboards(data)
             .then((response) => {
 
                 if (response.status === 200) {
 
                     dispatch({
-                        type: ADD_TEAM,
+                        type: Add_TBOARD,
                         data: response.data,
-                        signup: response.data.signup
                     });
                 }
-                // this.props.history.push("/"+1+"/teams")
-                history.push("/" + id + '/teams')
             })
             .catch((error) => {
                 if (error) {
                     dispatch({ type: FAILED, data: { error_msg: error.response.data.error } });
                 }
-
             })
     }
 }
-export const FetchTeam = (id) => {
+export const FetchTBoard = (id) => {
+
     return (dispatch) => {
-        authService.teamsname(id)
+        authService.teamboardsname(id)
             .then((response) => {
 
                 if (response.status === 200) {
                     dispatch({
-                        type: FETCH_TEAM,
+                        type: FETCH_TBOARD,
                         data: response.data
                     });
                 }
@@ -47,3 +44,4 @@ export const FetchTeam = (id) => {
             })
     }
 }
+

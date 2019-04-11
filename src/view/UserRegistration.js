@@ -24,22 +24,25 @@ class UserRegistration extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.err_msg === "" && this.state.formValid!==false) {
+    if (nextProps.err_msg === "" && this.state.formValid !== false) {
       this.setState({
         inValidEmail: ""
       })
-      const id=localStorage.getItem("iduser")
-      this.props.history.push('/'+id+'/boards');
+      this.props.history.push('/boards');
     }
     else {
       debugger
       this.setState({
-        
+
         validEmail: nextProps.err_msg
       })
     }
   }
-
+  enterPress(e) {
+    if (e.key === "Enter") {
+      this.props.action.userAction.userRegAction(this.state)
+    }
+  }
   handleOnChange = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -66,17 +69,17 @@ class UserRegistration extends Component {
         formValid: false
       })
 
-    
+
     var i;
-    for(i=0;i<this.props.userData.length;i++){
-      if(this.state.email===this.props.userData[i].email){
+    for (i = 0; i < this.props.userData.length; i++) {
+      if (this.state.email === this.props.userData[i].email) {
         this.setState({
-          fieldsErrors: { email: "email is already exist"} ,
-          formValid:false
-        
+          fieldsErrors: { email: "email is already exist" },
+          formValid: false
+
         })
       }
-      
+
     }
     if (this.state.formValid) {
       this.props.action.userAction.userRegAction(this.state)
@@ -116,8 +119,8 @@ class UserRegistration extends Component {
     this.setState({
       formValid: this.state.fieldsValid.name &&
         this.state.fieldsValid.email &&
-        this.state.fieldsValid.pw 
-        
+        this.state.fieldsValid.pw
+
     });
   }
 
@@ -127,9 +130,9 @@ class UserRegistration extends Component {
         <NavbarMain></NavbarMain>
         <div className="RegForm">
           <h4 className="Header">Create a Trello Account or <Link to="/login" path="/login">Log in</Link> to your account</h4>
-          <div className="Form" >
+          <div className="Form" style={{ marginTop: "3%" }}>
 
-            <Form >
+            <Form onKeyPress={this.enterPress.bind(this)} >
               <FormGroup>
                 <Label>Name</Label>
                 <Input type="text" name="name" id="name" placeholder="Enter name" onChange={this.handleOnChange.bind(this)} />

@@ -14,11 +14,19 @@ div.divstyle {
     padding:"4%";
     font-weight:"bold";
 
+
 }
  div.divstyle:hover {
-    background-color:#F5F5F5;	
+    background-color:#DCDCDC;	
     padding: 4%;
     padding-left: 5%;
     padding-bottom: 4%;
     cursor: pointer;
+}
+div.divstyleboard:hover {
+    background-color:black;	
+    opacity: 0.4;
+    cursor: pointer;
+    font-variant-caps: titling-caps;
+    border-radius: 7%
 }

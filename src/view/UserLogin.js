@@ -41,10 +41,11 @@ class UserLogin extends Component {
         }
     }
     ont = () => {
-        const iduser=localStorage.getItem("iduser")
+        debugger
+        const iduser = localStorage.getItem("iduser")
         const { auth } = this.state;
-        if (auth === true) {
-            this.props.history.push("/"+iduser+"/boards");
+        if (auth === true && iduser !== null) {
+            this.props.history.push("/boards");
             this.setState({
                 iduser: this.props.userAuth.iduser
             })
@@ -122,7 +123,7 @@ class UserLogin extends Component {
 
     enterPress(e) {
         if (e.key === "Enter") {
-            this.props.userData.users(this.state);
+            this.props.action.userAction.userloginAction(this.state)
         }
     }
     render() {
@@ -131,9 +132,9 @@ class UserLogin extends Component {
             <div>
                 <NavbarMain></NavbarMain>
                 <div className="RegForm">
-                    <h4 className="Header">Welcome to Trello! Log in to Trello or <Link to="/signup" path="/signup">Create an account</Link></h4>
+                    <h4 className="Header" style={{ marginBottom: "3%" }}>Welcome to Trello! Log in to Trello or <Link to="/signup" path="/signup">Create an account</Link></h4>
                     <div className="Form" >
-                        <Form onKeyPress={this.enterPress.bind(this)}>
+                        <Form onKeyPress={this.enterPress.bind(this)} >
                             <FormGroup>
                                 <Label>Email</Label>
                                 <Input type="email" name="email" id="email" placeholder="Enter email" onChange={this.handleOnChange.bind(this)} />

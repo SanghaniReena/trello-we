@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route } from "react-router-dom"
 import { Button, Nav, Navbar, NavItem, } from "reactstrap";
 
-
 const trelloIcon = require("../img/trellologo.png");
-
 
 class NavbarMain extends Component {
   render() {
