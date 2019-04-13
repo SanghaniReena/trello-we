@@ -31,7 +31,7 @@ class UserRegistration extends Component {
       this.props.history.push('/boards');
     }
     else {
-      debugger
+
       this.setState({
 
         validEmail: nextProps.err_msg

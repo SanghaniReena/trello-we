@@ -7,6 +7,7 @@ import NavbarInside from "../view/NavbarInside"
 import { withRouter } from "react-router"
 import * as teamboardAction from "../action/TeamBoardsAction"
 import * as teamAction from "../action/TeamsAction"
+import * as boardAction from "../action/BoardsAction"
 
 class TeamBoards extends Component {
 
@@ -17,12 +18,7 @@ class TeamBoards extends Component {
             this.props.action.teamboardAction.FetchTBoard(idteam)
         }
     }
-    componentDidMount() {
-        const idteams = this.props.location.pathname.slice(1);
-        const idteam = idteams.slice(0, -11);
-        this.props.action.teamboardAction.FetchTBoard(idteam)
 
-    }
     constructor(props) {
         super(props);
         this.toggleModal = this.toggleModal.bind(this);
@@ -56,7 +52,12 @@ class TeamBoards extends Component {
             bTitle: this.state.bTitle,
             idteams: this.state.idteams
         }
-        this.props.action.teamboardAction.AddTBoard(TbData)
+        if (this.state.idteams === 0) {
+            this.props.action.boardAction.AddBoard(TbData)
+        }
+        else {
+            this.props.action.teamboardAction.AddTBoard(TbData)
+        }
     }
 
     render() {
@@ -90,7 +91,7 @@ class TeamBoards extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="teamselect">Select Team</Label>
-                                <Input type="select" name="idteams" id="idteams" onChange={(e) => this.handleOnChange("idteams", e)} >
+                                <Input type="select" defaultValue="0" name="idteams" id="idteams" onChange={(e) => this.handleOnChange("idteams", e)} >
                                     <option value="0">No team</option>
                                     {teamSelect}
                                 </Input>
@@ -123,12 +124,14 @@ class TeamBoards extends Component {
 const mapStateToProps = (state) => {
     return {
         teamboardData: state.TeamBoardsReducer.Tboards,
+        boardData: state.BoardReducer.Boards,
         teamData: state.TeamReducer.teams,
     }
 }
 const mapDispatchToProps = (dispatch) => ({
     action: {
         teamboardAction: bindActionCreators(teamboardAction, dispatch),
+        boardAction: bindActionCreators(boardAction, dispatch),
         teamAction: bindActionCreators(teamAction, dispatch),
 
     }

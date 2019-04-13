@@ -1,7 +1,8 @@
 import { Add_TBOARD, FAILED, FETCH_TBOARD } from "../action/TeamBoardsAction"
 
 const INITIAL_STATE = {
-    Tboards: []
+    Tboards: [],
+    idteams: 0
 }
 const handleTBoards = (state = INITIAL_STATE, action) => {
 

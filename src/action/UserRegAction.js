@@ -7,11 +7,11 @@ export const FETCH_USERS = "FETCH_USERS";
 export const FAILED = "FAILED";
 export const LOGOUT = "LOGOUT";
 export const userRegAction = (data) => {
-    debugger
+
     return (dispatch) => {
         authService.signup(data)
             .then((response) => {
-                if (response.status === 200) {  
+                if (response.status === 200) {
                     localStorage.setItem("userName", response.data[0].name)
                     localStorage.setItem("iduser", response.data[0].iduser)
                     dispatch({

@@ -6,7 +6,6 @@ import { Card, CardTitle, Label } from 'reactstrap';
 import { bindActionCreators } from "redux";
 import * as boardAction from "../action/BoardsAction"
 import * as teamAction from "../action/TeamsAction"
-
 import NavbarInside from "../view/NavbarInside"
 import { withRouter } from "react-router"
 
@@ -56,6 +55,7 @@ class Boards extends Component {
   }
 
   render() {
+    debugger
     let boardData = ""
     boardData = this.props.boardData.map((boardData, key) => {
       return (
@@ -86,7 +86,7 @@ class Boards extends Component {
               <FormGroup>
                 <Label for="teamselect">Select Team</Label>
                 <Input type="select" name="idteams" id="idteams" onChange={(e) => this.handleOnChange("idteams", e)} >
-                  <option value="0">No team</option>
+                  <option defaultValue="0">No team</option>
                   {teamSelect}
                 </Input>
               </FormGroup>
@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   action: {
     boardAction: bindActionCreators(boardAction, dispatch),
-    teamAction: bindActionCreators(teamAction, dispatch),
+    teamAction: bindActionCreators(teamAction, dispatch)
 
   }
 })

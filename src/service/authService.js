@@ -30,3 +30,10 @@ export function teamboards(data) {
 export function teamboardsname(id) {
     return BaseService.get("/" + id + '/teamboards');
 }
+export function lists(data) {
+    return BaseService.post('/lists', data);
+}
+export function listname(id) {
+    debugger
+    return BaseService.get("/" + id + '/lists');
+}

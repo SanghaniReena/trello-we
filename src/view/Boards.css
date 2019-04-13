@@ -30,3 +30,22 @@ div.divstyleboard:hover {
     font-variant-caps: titling-caps;
     border-radius: 7%
 }
+div.boardnav{
+    font-size: 120%;
+    align-self: center;
+    color: white;
+    margin:1%;
+    padding: 2%;
+    min-width: fit-content;
+ }
+ div.boardnav:hover{
+    background-color:black;	
+    opacity: 0.4;
+    border:none;
+    cursor: pointer;
+    font-variant-caps: titling-caps;
+    border-radius: 7%
+ }
+ Form.formclass{
+    padding: 4%;
+ }

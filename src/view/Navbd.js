@@ -177,9 +177,7 @@ class Navbd extends Component {
                             </Nav>
                         </Collapse>
                     </Navbar>
-
                 </div>
-
             </div>
         );
     }

@@ -41,7 +41,7 @@ class UserLogin extends Component {
         }
     }
     ont = () => {
-        debugger
+        
         const iduser = localStorage.getItem("iduser")
         const { auth } = this.state;
         if (auth === true && iduser !== null) {

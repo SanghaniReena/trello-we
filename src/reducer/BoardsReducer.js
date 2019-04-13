@@ -12,7 +12,7 @@ const handleBoards = (state = INITIAL_STATE, action) => {
             }
         case Add_BOARD:
             {
-                debugger
+
                 const newdata = state.boards.concat(action.data);
                 return Object.assign({}, state, { boards: newdata })
 
