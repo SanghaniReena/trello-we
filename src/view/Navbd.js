@@ -1,10 +1,9 @@
 import "../view/style.css"
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarToggler, UncontrolledDropdown } from 'reactstrap';
-import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, Label, ModalHeader } from 'reactstrap';
 import { bindActionCreators } from "redux";
 import * as boardAction from "../action/BoardsAction";
 import * as teamAction from "../action/TeamsAction"
@@ -23,6 +22,7 @@ class Navbd extends Component {
             isOpen: false,
             isOpenM: false,
             isOpenTM: false,
+            idteams: 0,
             bTitle: "",
             iduser: "",
             boards: [],
@@ -81,14 +81,16 @@ class Navbd extends Component {
         }
     }
     handleCreateBoardEvent = () => {
-
+        debugger
         const idusers = localStorage.getItem("iduser")
         this.toggleModal();
-        const bTitle = {
+        const bData = {
             iduser: idusers,
-            bTitle: this.state.bTitle
+            bTitle: this.state.bTitle,
+            idteams: this.state.idteams
+
         }
-        this.props.action.boardAction.AddBoard(bTitle)
+        this.props.action.boardAction.AddBoard(bData)
 
     }
     handleCreateTeamEvent = () => {
@@ -105,7 +107,13 @@ class Navbd extends Component {
 
     }
     render() {
-        const uname = localStorage.getItem("userName")
+        const uname = localStorage.getItem("userName");
+        let teamSelect = this.props.teamData.map((teamData, key) => {
+            return (
+                <option key={key} value={teamData.idteams}>{teamData.tName}
+                </option>
+            )
+        })
         return (
             <div>
                 <div>
@@ -115,6 +123,13 @@ class Navbd extends Component {
                             <Form>
                                 <FormGroup>
                                     <Input type="text" name="bTitle" id="bTitle" placeholder="Add Board Title" onChange={(e) => this.handleOnChange("bTitle", e)} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="teamselect">Select Team</Label>
+                                    <Input type="select" name="idteams" id="idteams" onChange={(e) => this.handleOnChange("idteams", e)} >
+                                        <option value="0">No team</option>
+                                        {teamSelect}
+                                    </Input>
                                 </FormGroup>
                             </Form>
                         </ModalBody>

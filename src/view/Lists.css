@@ -1,5 +1,7 @@
 div.listdiv{
-    padding: 1%
+    margin-left: 0.3%;
+    margin-right: -3.6%;
+    padding: 1%;
 }
 div.cardlist{
     padding: 2%;
@@ -17,9 +19,10 @@ div.cardlist{
 div button.buttonlist{
     padding: 0.5%;
     width: 20%;
+    margin: 0.5% 1.6%;
     height: 5%;
     text-align: left;
-    background-color: #DCDCDC;
+    background-color: #DFE3E6;
     border: none;
     border-radius:  5%; 
 }

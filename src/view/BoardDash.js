@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { Card, CardTitle } from 'reactstrap';
-
 import * as boardAction from "../action/BoardsAction"
 import * as listAction from "../action/ListsAction"
 import * as teamAction from "../action/TeamsAction"
@@ -109,8 +108,9 @@ class BoardDash extends Component {
     let listData = this.props.listData.map((listData, key) => {
       return (
         <div className="col-sm-4" style={{ padding: "7px", width: "100%", marginLeft: "1%", WebkitFlex: "0 0 33.333333%", maxWidth: "23.333333%" }} key={key}>
-          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "white", border: "none", borderRadius: " 6%" }} >
+          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "#dfe3e6", border: "none", borderRadius: " 6%" }} >
             <CardTitle style={{ fontWeight: " bolder", fontSize: "larger" }}>{listData.lName}</CardTitle>
+            <a href="" style={{ color: "#6b808c" }}>+ Add a card </a>
           </Card>
         </div>
       )
