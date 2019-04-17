@@ -1,8 +1,10 @@
-import { Add_TBOARD, FAILED, FETCH_TBOARD } from "../action/TeamBoardsAction"
+import { Add_TBOARD, FAILED, FETCH_TBOARD, FETCH_IBOARD } from "../action/TeamBoardsAction"
 
 const INITIAL_STATE = {
     Tboards: [],
-    idteams: 0
+    idteams: 0,
+    teamboards: []
+
 }
 const handleTBoards = (state = INITIAL_STATE, action) => {
 
@@ -11,7 +13,11 @@ const handleTBoards = (state = INITIAL_STATE, action) => {
             {
                 return Object.assign({}, state, { Tboards: action.data })
             }
-
+        case FETCH_IBOARD:
+            {
+                debugger
+                return Object.assign({}, state, { teamboards: action.data })
+            }
         case Add_TBOARD:
             {
                 const newdata = state.Tboards.concat(action.data);

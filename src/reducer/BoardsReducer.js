@@ -1,7 +1,7 @@
 import { Add_BOARD, FAILED, FETCH_BOARD } from "../action/BoardsAction"
 const INITIAL_STATE = {
     boards: [],
-    idteams: 0
+    idteams: 0,
 }
 const handleBoards = (state = INITIAL_STATE, action) => {
 
@@ -10,9 +10,9 @@ const handleBoards = (state = INITIAL_STATE, action) => {
             {
                 return Object.assign({}, state, { boards: action.data })
             }
+
         case Add_BOARD:
             {
-
                 const newdata = state.boards.concat(action.data);
                 return Object.assign({}, state, { boards: newdata })
 

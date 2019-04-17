@@ -8,7 +8,6 @@ const handleLists = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_LIST:
             {
-                debugger
                 return Object.assign({}, state, { lists: action.data })
             }
         case ADD_LIST:

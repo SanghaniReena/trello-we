@@ -9,8 +9,10 @@ export const LOGOUT = "LOGOUT";
 export const userRegAction = (data) => {
 
     return (dispatch) => {
+
         authService.signup(data)
             .then((response) => {
+
                 if (response.status === 200) {
                     localStorage.setItem("userName", response.data[0].name)
                     localStorage.setItem("iduser", response.data[0].iduser)
@@ -34,6 +36,7 @@ export const userRegAction = (data) => {
 }
 export const FetchUsers = () => {
     return (dispatch) => {
+
         authService.getUsers()
             .then((response) => {
                 if (response.status === 200) {

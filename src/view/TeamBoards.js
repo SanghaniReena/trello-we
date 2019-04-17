@@ -41,7 +41,7 @@ class TeamBoards extends Component {
     }
 
     handleOnclickCard = (id) => {
-        this.props.history.push("/board/" + id)
+        this.props.history.push("/teamboard/" + id)
     }
     handleCreateBoardEvent = () => {
 

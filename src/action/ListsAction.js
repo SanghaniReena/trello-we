@@ -24,7 +24,7 @@ export const AddList = (data) => {
     }
 }
 export const FetchList = (id) => {
-    debugger
+
     return (dispatch) => {
         authService.listname(id)
             .then((response) => {

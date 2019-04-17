@@ -55,7 +55,7 @@ class Boards extends Component {
   }
 
   render() {
-    debugger
+
     let boardData = ""
     boardData = this.props.boardData.map((boardData, key) => {
       return (

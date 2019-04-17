@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { Card, CardTitle } from 'reactstrap';
-
 import * as boardAction from "../action/BoardsAction"
 import * as listAction from "../action/ListsAction"
 import * as teamAction from "../action/TeamsAction"
@@ -12,12 +11,11 @@ import { Popover, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, Uncon
 import "./Boards.css"
 import "./Lists.css"
 import Lists from './Lists';
+
 class BoardDash extends Component {
-  componentDidMount() {
 
-  }
   componentWillMount() {
-
+    debugger
     const { history } = this.props;
     const iduser = localStorage.getItem("iduser")
     this.props.action.boardAction.FetchBoard(iduser, history)
@@ -27,7 +25,6 @@ class BoardDash extends Component {
   constructor(props) {
     super(props);
     this.togglep = this.togglep.bind(this);
-
     this.toggle = this.toggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this)
     this.toggleTModal = this.toggleTModal.bind(this)
@@ -85,7 +82,6 @@ class BoardDash extends Component {
     })
   }
   handleOnChangelist = (key, e) => {
-    console.log("....", this.state.lName)
     this.setState({
       [key]: e.target.value
     })
@@ -109,8 +105,9 @@ class BoardDash extends Component {
     let listData = this.props.listData.map((listData, key) => {
       return (
         <div className="col-sm-4" style={{ padding: "7px", width: "100%", marginLeft: "1%", WebkitFlex: "0 0 33.333333%", maxWidth: "23.333333%" }} key={key}>
-          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "white", border: "none", borderRadius: " 6%" }} >
+          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "#dfe3e6", border: "none", borderRadius: " 6%" }} >
             <CardTitle style={{ fontWeight: " bolder", fontSize: "larger" }}>{listData.lName}</CardTitle>
+            <div className="Addcard">+ <a href="" style={{ color: "#6b808c" }} >Add a card </a></div>
           </Card>
         </div>
       )
@@ -172,7 +169,6 @@ class BoardDash extends Component {
               </form>
             </Popover>
           </div>
-
         </div>
       </div>
     );

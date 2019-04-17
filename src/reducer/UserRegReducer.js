@@ -2,15 +2,15 @@ import {
 
 
 
-FAILED,
+    FAILED,
 
-FETCH_USERS,
+    FETCH_USERS,
 
-LOGOUT,
+    LOGOUT,
 
-USER_LOGIN,
+    USER_LOGIN,
 
-USER_REG
+    USER_REG
 } from "../action/UserRegAction"
 
 const INITIAL_STATE = {
@@ -19,15 +19,15 @@ const INITIAL_STATE = {
     iduser: "",
     error_msg: "",
     error_msgl: "",
- 
+
 
 }
 const handleReg = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USER_REG:
-            {  
+            {
                 const newUser = state.users.concat(action.data);
-                return Object.assign({}, state, { users: newUser});
+                return Object.assign({}, state, { users: newUser });
 
             }
         case USER_LOGIN:
