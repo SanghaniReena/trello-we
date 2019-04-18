@@ -1,7 +1,6 @@
 import BaseService from './baseService';
 
 export function signup(data) {
-
     return BaseService.post('/signup', data);
 }
 export function getUsers() {
@@ -29,18 +28,22 @@ export function teamsname(id) {
 export function tboardname(iduser, idteams) {
     return BaseService.get('/' + iduser + '/teamboard/' + idteams);
 }
-
 export function teamboards(data) {
     return BaseService.post('/teamboards', data);
 }
 export function teamboardsname(id) {
     return BaseService.get("/" + id + '/teamboards');
 }
+export function editteamboards(idboards, idteams) {
+    debugger
+    return BaseService.put("/" + idboards + '/editteamboards/' + idteams);
+}
+
 export function lists(data) {
     return BaseService.post('/lists', data);
 }
 export function listname(id) {
-    debugger
+
     return BaseService.get("/" + id + '/lists');
 }
 export function cards(data) {

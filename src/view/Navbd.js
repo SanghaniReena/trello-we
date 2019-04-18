@@ -92,8 +92,16 @@ class Navbd extends Component {
         this.props.action.boardAction.AddBoard(bData)
 
     }
+    handlnavboardClick = () => {
+        const iduser = localStorage.getItem("iduser")
+        if (iduser !== null) {
+            this.props.history.push("/boards");
+        }
+        else {
+            this.props.history.push("/login");
+        }
+    }
     handleCreateTeamEvent = () => {
-
         const idusers = localStorage.getItem("iduser")
         this.toggleTModal();
         const tData = {
@@ -160,6 +168,7 @@ class Navbd extends Component {
 
                     <Navbar expand="md" style={{ backgroundColor: "#026AA7", fontWeight: "bold" }}>
                         <a href="/" style={{ background: "white", opacity: "0.5", borderRadius: "9%", padding: "0.5%" }}><img height="25px" width="80px" src={trelloIcon} alt=""></img></a>
+                        <div className="navbord" onClick={this.handlnavboardClick.bind(this)}>Boards</div>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>

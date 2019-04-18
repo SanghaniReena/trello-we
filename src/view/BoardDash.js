@@ -11,18 +11,21 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Popover, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, UncontrolledDropdown } from 'reactstrap';
 import "./Boards.css"
 import "./Lists.css"
-import * as teamboardAction from "../action/TeamBoardsAction"
+import * as teamboardAction from "../action/TeamBoardsAction";
+import { timingSafeEqual } from 'crypto';
+// import { Draggable } from 'react-beautiful-dnd';
 class BoardDash extends Component {
-
+  componentDidUpdate() {
+    const idboards = this.props.location.pathname.slice(7);
+    this.props.action.cardAction.FetchCard(idboards)
+  }
   componentWillMount() {
-    debugger
     const { history } = this.props;
     const iduser = localStorage.getItem("iduser")
     this.props.action.boardAction.FetchBoard(iduser, history)
     const idboards = this.props.location.pathname.slice(7);
     this.props.action.listAction.FetchList(idboards)
     this.props.action.teamboardAction.FetchiBoard(iduser, idboards)
-    this.props.action.cardAction.FetchCard(idboards)
   }
   constructor(props) {
     super(props);
@@ -102,6 +105,19 @@ class BoardDash extends Component {
       [key]: e.target.value
     })
   }
+  handleChangeTeam = (data) => {
+    debugger;
+    let idteams = this.state.idteams
+    let idboards = data.idboards
+    this.props.action.teamboardAction.EditTBoard(idboards, idteams)
+  }
+
+  drop = (e) => {
+    e.preventDefault();
+    const d = e.dataTransfer.getData("transfer");
+    e.target.appendChild(document.getElementById(d));
+
+  }
 
   render() {
     let data = this.props.teamBoardData[0];
@@ -119,19 +135,24 @@ class BoardDash extends Component {
         return teams.idteams === parseInt(iteam, 10)
       })
     }
-    let cardData = "";
-    if (this.props.cardData) {
-      cardData = this.props.cardData.map((cardData) => {
-        return (<div>{cardData.cTitle}</div>)
-      })
-    }
     let listData = this.props.listData.map((listData, key) => {
       return (
         <div className="col-sm-4" style={{ padding: "7px", width: "100%", marginLeft: "1%", WebkitFlex: "0 0 33.333333%", maxWidth: "23.333333%" }} key={key}>
-          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "#dfe3e6", border: "none", borderRadius: " 6%" }} >
+          <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "#dfe3e6", border: "none", borderRadius: " 6%", boxShadow: "1px 1px 1px grey" }} >
             <CardTitle style={{ fontWeight: " bolder", fontSize: "larger" }}>{listData.lName}</CardTitle>
-            {cardData}
-            <div className="Addcard" onClick={() => this.handleCardClick(listData.idlist)}>+ Add a card </div>
+            {this.props.cardData.map((cardData, key) => {
+
+              if (listData.idlist === cardData.idlists) {
+                return (
+                  <div key={key} className="cardTitle" id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop}
+                    style={this.props.style}>
+                    {cardData.cTitle}</div>
+                )
+              }
+              else { return "" }
+            })}
+
+            <div className="Addcard" onClick={() => this.handleCardClick(listData.idlist)}>+ Add a card</div>
           </Card>
         </div>
       )
@@ -146,7 +167,6 @@ class BoardDash extends Component {
               <FormGroup>
                 <Input type="text" name="cTitle" id="cTitle" placeholder="Enter a title for this card.." onChange={(e) => this.handleOnChange("cTitle", e)} />
               </FormGroup>
-
             </Form>
           </ModalBody>
           <ModalFooter>
@@ -162,8 +182,8 @@ class BoardDash extends Component {
             <UncontrolledDropdown nav inNavbar  >
               <DropdownToggle nav style={{ alignSelf: "center", fontWeight: "bold", color: "white", background: "#3487B8", padding: "2%", margin: "1%", marginLeft: "4%", border: "None" }}>
                 <center> {(data) ? ((data.idteams === 0)
-                  ? (<div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>Personal</div>)
-                  : (<div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>{(teamname) ? (teamname[0].tName) : ""}</div>)) : ""} </center>
+                  ? (<div className="boardnav" style={{ marginTop: "5%", padding: "2%", marginLeft: "1%" }}>Personal</div>)
+                  : (<div className="boardnav" style={{ marginTop: "5%", padding: "2%", marginLeft: "1%" }}>{(teamname) ? (teamname[0].tName) : ""}</div>)) : ""} </center>
               </DropdownToggle>
               <DropdownMenu style={{ width: "max-content" }}>
                 <DropdownItem style={{ textAlign: "center" }} header>Add to a team</DropdownItem>
@@ -178,7 +198,7 @@ class BoardDash extends Component {
                   </FormGroup>
                 </Form>
                 <div style={{ paddingLeft: "5%" }} >
-                  <Button color="primary" >Add</Button>
+                  <Button color="primary" onClick={this.handleChangeTeam.bind(this, data)} >Add</Button>
                   <a style={{ marginLeft: "35%", float: "center", textAlign: "center" }} href="/boards">Create Team</a></div>
               </DropdownMenu>
             </UncontrolledDropdown >
@@ -186,15 +206,15 @@ class BoardDash extends Component {
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav style={{ alignSelf: "center", fontWeight: "bold", color: "white", background: "#3487B8", padding: "2%", margin: "1%", marginLeft: "4%", border: "None" }}>
-                <center><div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>Private</div></center></DropdownToggle>
+                <center><div className="boardnav" style={{ marginTop: "5%", marginLeft: "1%", padding: "2%" }}>Private</div></center></DropdownToggle>
               <DropdownMenu>
-                <DropdownItem style={{ textAlign: "center" }} header>Create</DropdownItem>
+                <DropdownItem style={{ textAlign: "center" }} header>Select</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={this.toggleModal}>
-                  Create Board
+                <DropdownItem >
+                  Personal
                     </DropdownItem>
-                <DropdownItem onClick={this.toggleTModal}>
-                  Create Team
+                <DropdownItem >
+                  Private
                    </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -204,7 +224,7 @@ class BoardDash extends Component {
           <div className="row" >
             {listData}
             <button id="Popover1" className="buttonlist" >+ Add a list</button>
-            <Popover style={{ size: "fixed" }} placement="bottom" isOpen={this.state.isOpen} target="Popover1" toggle={this.togglep}>
+            <Popover style={{ width: "max-content" }} placement="bottom" isOpen={this.state.isOpen} target="Popover1" toggle={this.togglep}>
               <form className="listForm">
                 <input max="25" className="inputForm" type="text" name="lName" id="lName" placeholder="Add list Title" onChange={(e) => this.handleOnChangelist("lName", e)} />
                 <button className="but" onClick={this.handleAddClick.bind(this, data)}>Add List</button>

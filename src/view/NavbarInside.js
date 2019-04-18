@@ -12,7 +12,7 @@ import * as userAction from "../action/UserRegAction"
 const createI = require("../img/createi.png");
 const teamI = require("../img/teami.png");
 const trelloI = require("../img/ticon.jpg");
-const homeI = require("../img/home.png");
+// const homeI = require("../img/home.png");
 const trelloIcon = require("../img/trellologo.png");
 
 class NavbarInside extends Component {
@@ -212,8 +212,8 @@ class NavbarInside extends Component {
           <div  >
             <div className="divstyle" onClick={this.handleClick.bind(this)} style={{ fontWeight: "bold", fontSize: "120%", margin: "2%" }}>
               <img height="20px" width="20px" src={trelloI} style={{ marginRight: "4%", marginLeft: "3%" }} color="#F5F5F5" alt=""></img>Boards</div>
-            <div className="divstyle" style={{ fontWeight: "bold", fontSize: "120%", marginLeft: "-2%" }} >
-              <img height="30px" width="40px" src={homeI} color="#F5F5F5" alt=""></img>Home</div>
+            {/*<div className="divstyle" style={{ fontWeight: "bold", fontSize: "120%", marginLeft: "-2%" }} >
+    <img height="30px" width="40px" src={homeI} color="#F5F5F5" alt=""></img>Home</div>*/}
             <div style={{ margin: "2%", fontSize: "120%" }}  >Teams</div>
             {teamData}
 
