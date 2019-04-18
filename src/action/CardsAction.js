@@ -1,17 +1,17 @@
 import * as authService from "../service/authService"
 
-export const Add_BOARD = "ADD_BOARD";
-export const FETCH_BOARD = "FETCH_BOARD";
+export const ADD_CARD = "ADD_CARD";
+export const FETCH_CARD = "FETCH_CARD";
 export const FAILED = "FAILED";
 
-export const AddBoard = (data) => {
+export const AddCard = (data) => {
 
     return (dispatch) => {
-        authService.boards(data)
+        authService.cards(data)
             .then((response) => {
                 if (response.status === 200) {
                     dispatch({
-                        type: Add_BOARD,
+                        type: ADD_CARD,
                         data: response.data,
                     });
                 }
@@ -23,15 +23,15 @@ export const AddBoard = (data) => {
             })
     }
 }
-export const FetchBoard = (id) => {
+export const FetchCard = (id) => {
 
     return (dispatch) => {
-        authService.boardsname(id)
+        authService.cardsname(id)
             .then((response) => {
 
                 if (response.status === 200) {
                     dispatch({
-                        type: FETCH_BOARD,
+                        type: FETCH_CARD,
                         data: response.data
                     });
                 }

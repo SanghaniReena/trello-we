@@ -37,6 +37,7 @@ div.boardnav{
     margin:1%;
     padding: 2%;
     min-width: fit-content;
+    width: max-content
  }
  div.boardnav:hover{
     background-color:black;	

@@ -11,7 +11,7 @@ const handleteams = (state = INITIAL_STATE, action) => {
             {
                 return Object.assign({}, state, { teams: action.data })
             }
-           
+        
         case ADD_TEAM:
             {
                 const newdata = state.teams.concat(action.data);

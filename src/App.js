@@ -9,7 +9,6 @@ import Teams from "./view/Teams"
 import UserLogin from './view/UserLogin';
 import UserRegistration from './view/UserRegistration';
 import TeamBoards from './view/TeamBoards';
-import TeamBoardDash from './view/TeamBoardDash';
 
 class App extends Component {
 
@@ -23,7 +22,6 @@ class App extends Component {
           <Route path='/boards' component={Boards} />
           <Route path='/:id/teamboards' component={TeamBoards} />
           <Route path='/board/:id' component={BoardDash} />
-          <Route path='/teamboard/:id' component={TeamBoardDash} />
           <Route path='/:id/teams' component={Teams} />
           <Route path='/:id/cards' component={Cards} />
         </Switch>

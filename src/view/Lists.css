@@ -79,3 +79,7 @@ position: absolute;
 div.Addcard{
  color: #6b808c;
 }
+div.Addcard:hover{
+ color: #444749;
+ text-decoration: underline
+}

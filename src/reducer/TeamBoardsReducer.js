@@ -15,7 +15,6 @@ const handleTBoards = (state = INITIAL_STATE, action) => {
             }
         case FETCH_IBOARD:
             {
-                debugger
                 return Object.assign({}, state, { teamboards: action.data })
             }
         case Add_TBOARD:

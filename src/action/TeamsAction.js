@@ -17,7 +17,6 @@ export const AddTeam = (data, history) => {
                         signup: response.data.signup
                     });
                 }
-                // this.props.history.push("/"+1+"/teams")
                 history.push("/" + id + '/teams')
             })
             .catch((error) => {

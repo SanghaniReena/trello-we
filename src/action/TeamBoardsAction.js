@@ -47,7 +47,7 @@ export const FetchTBoard = (id) => {
 }
 
 export const FetchiBoard = (iduser, idteam) => {
-    debugger
+
     return (dispatch) => {
         authService.tboardname(iduser, idteam)
             .then((response) => {

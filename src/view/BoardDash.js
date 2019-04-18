@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { Card, CardTitle } from 'reactstrap';
+import { Card, CardTitle, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import * as boardAction from "../action/BoardsAction"
 import * as listAction from "../action/ListsAction"
 import * as teamAction from "../action/TeamsAction"
+import * as cardAction from "../action/CardsAction"
 import Navbd from './Navbd';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Popover, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, UncontrolledDropdown } from 'reactstrap';
 import "./Boards.css"
 import "./Lists.css"
-import Lists from './Lists';
-
+import * as teamboardAction from "../action/TeamBoardsAction"
 class BoardDash extends Component {
 
   componentWillMount() {
@@ -19,8 +19,10 @@ class BoardDash extends Component {
     const { history } = this.props;
     const iduser = localStorage.getItem("iduser")
     this.props.action.boardAction.FetchBoard(iduser, history)
-    const id = this.props.location.pathname.slice(7);
-    this.props.action.listAction.FetchList(id)
+    const idboards = this.props.location.pathname.slice(7);
+    this.props.action.listAction.FetchList(idboards)
+    this.props.action.teamboardAction.FetchiBoard(iduser, idboards)
+    this.props.action.cardAction.FetchCard(idboards)
   }
   constructor(props) {
     super(props);
@@ -49,15 +51,29 @@ class BoardDash extends Component {
       isOpen: !prevState.isOpen
     }));
   }
-
-  handleAddClick = (idboards) => {
-    debugger
-    const idusers = localStorage.getItem("iduser")
+  handleCardClick = (idl) => {
+    this.setState({
+      idl: idl
+    })
+    this.toggleModal()
+  }
+  handleCreateCardSubmit = (data) => {
+    this.toggleModal()
+    const cardData = {
+      cTitle: this.state.cTitle,
+      idlists: this.state.idl,
+      idboards: data.idboards,
+      idteams: data.idteams,
+      iduser: data.iduser,
+    }
+    this.props.action.cardAction.AddCard(cardData)
+  }
+  handleAddClick = (data) => {
     const listData = {
       lName: this.state.lName,
-      iduser: idusers,
-      idboards: idboards,
-      idteams: 0
+      iduser: data.iduser,
+      idboards: data.idboards,
+      idteams: data.idteams
     }
     this.props.action.listAction.AddList(listData)
   }
@@ -85,29 +101,37 @@ class BoardDash extends Component {
     this.setState({
       [key]: e.target.value
     })
-    console.log(this.state.lName)
   }
-  render() {
 
-    const id = this.props.location.pathname.slice(7);
-    let data = "";
-    if (this.props.boardData && this.props.boardData.length > 0) {
-      data = this.props.boardData.filter((board) => {
-        return board.idboards === parseInt(id, 10);
-      })
-    }
+  render() {
+    let data = this.props.teamBoardData[0];
     let teamSelect = this.props.teamData.map((teamData, key) => {
       return (
         <option key={key} value={teamData.idteams}>{teamData.tName}
         </option>
       )
     })
+
+    let teamname = "";
+    if (this.props.teamData && this.props.teamData.length > 0 && data && data.idteams !== 0) {
+      let iteam = data.idteams
+      teamname = this.props.teamData.filter((teams) => {
+        return teams.idteams === parseInt(iteam, 10)
+      })
+    }
+    let cardData = "";
+    if (this.props.cardData) {
+      cardData = this.props.cardData.map((cardData) => {
+        return (<div>{cardData.cTitle}</div>)
+      })
+    }
     let listData = this.props.listData.map((listData, key) => {
       return (
         <div className="col-sm-4" style={{ padding: "7px", width: "100%", marginLeft: "1%", WebkitFlex: "0 0 33.333333%", maxWidth: "23.333333%" }} key={key}>
           <Card className="card1" body outline color="secondary" style={{ width: "90%", backgroundColor: "#dfe3e6", border: "none", borderRadius: " 6%" }} >
             <CardTitle style={{ fontWeight: " bolder", fontSize: "larger" }}>{listData.lName}</CardTitle>
-            <div className="Addcard">+ <a href="" style={{ color: "#6b808c" }} >Add a card </a></div>
+            {cardData}
+            <div className="Addcard" onClick={() => this.handleCardClick(listData.idlist)}>+ Add a card </div>
           </Card>
         </div>
       )
@@ -115,14 +139,32 @@ class BoardDash extends Component {
     return (
       <div>
         <Navbd></Navbd>
+        <Modal isOpen={this.state.isOpenM} toggle={this.toggleModal}>
+          <ModalBody>
+            <ModalHeader toggle={this.toggleModal}>Add card </ModalHeader>
+            <Form>
+              <FormGroup>
+                <Input type="text" name="cTitle" id="cTitle" placeholder="Enter a title for this card.." onChange={(e) => this.handleOnChange("cTitle", e)} />
+              </FormGroup>
+
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleCreateCardSubmit.bind(this, data)}>Add</Button>{' '}
+            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
         <Navbar expand="md" style={{ backgroundColor: "#3487B8", fontWeight: "bold" }}>
           <Nav navbar>
-            <div className="boardnav">{(data) ? data[0].bTitle : null}</div>
+            <div className="boardnav">{(data) ? data.bTitle : ""}</div>
             <div style={{ borderLeft: "inset", marginLeft: "1%" }} ></div>
 
             <UncontrolledDropdown nav inNavbar  >
               <DropdownToggle nav style={{ alignSelf: "center", fontWeight: "bold", color: "white", background: "#3487B8", padding: "2%", margin: "1%", marginLeft: "4%", border: "None" }}>
-                <center> <div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>Personal</div></center></DropdownToggle>
+                <center> {(data) ? ((data.idteams === 0)
+                  ? (<div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>Personal</div>)
+                  : (<div className="boardnav" style={{ marginTop: "5%", padding: "2%" }}>{(teamname) ? (teamname[0].tName) : ""}</div>)) : ""} </center>
+              </DropdownToggle>
               <DropdownMenu style={{ width: "max-content" }}>
                 <DropdownItem style={{ textAlign: "center" }} header>Add to a team</DropdownItem>
                 <DropdownItem divider />
@@ -165,7 +207,7 @@ class BoardDash extends Component {
             <Popover style={{ size: "fixed" }} placement="bottom" isOpen={this.state.isOpen} target="Popover1" toggle={this.togglep}>
               <form className="listForm">
                 <input max="25" className="inputForm" type="text" name="lName" id="lName" placeholder="Add list Title" onChange={(e) => this.handleOnChangelist("lName", e)} />
-                <button className="but" onClick={this.handleAddClick.bind(this, id)}>Add List</button>
+                <button className="but" onClick={this.handleAddClick.bind(this, data)}>Add List</button>
               </form>
             </Popover>
           </div>
@@ -180,6 +222,8 @@ const mapStateToProps = (state) => {
     boardData: state.BoardReducer.boards,
     teamData: state.TeamReducer.teams,
     listData: state.ListsReducer.lists,
+    teamBoardData: state.TeamBoardsReducer.teamboards,
+    cardData: state.CardsReducer.cards
 
   }
 }
@@ -187,8 +231,9 @@ const mapDispatchToProps = (dispatch) => ({
   action: {
     boardAction: bindActionCreators(boardAction, dispatch),
     teamAction: bindActionCreators(teamAction, dispatch),
-    listAction: bindActionCreators(listAction, dispatch)
-
+    listAction: bindActionCreators(listAction, dispatch),
+    teamboardAction: bindActionCreators(teamboardAction, dispatch),
+    cardAction: bindActionCreators(cardAction, dispatch)
   }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(BoardDash)

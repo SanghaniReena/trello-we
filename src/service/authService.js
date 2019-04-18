@@ -25,8 +25,8 @@ export function teams(data) {
 export function teamsname(id) {
     return BaseService.get(id + '/teams');
 }
+
 export function tboardname(iduser, idteams) {
-    debugger
     return BaseService.get('/' + iduser + '/teamboard/' + idteams);
 }
 
@@ -40,5 +40,12 @@ export function lists(data) {
     return BaseService.post('/lists', data);
 }
 export function listname(id) {
+    debugger
     return BaseService.get("/" + id + '/lists');
+}
+export function cards(data) {
+    return BaseService.post('/cards', data);
+}
+export function cardsname(id) {
+    return BaseService.get("/" + id + '/cards');
 }
