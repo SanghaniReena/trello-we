@@ -1,0 +1,17 @@
+div.cmMainDiv{
+    margin: 5%;
+    size: 80%;
+    min-height: 600px;
+    min-width: 700px;
+   
+}
+div.cmTitle{
+    font-size: 25px;
+    font-weight: bold;
+}
+a.cmSubTitle{
+    text-decoration: underline;
+}
+div.cmSubTitle:hover{
+    
+}

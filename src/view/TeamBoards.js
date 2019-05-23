@@ -53,10 +53,13 @@ class TeamBoards extends Component {
             idteams: this.state.idteams
         }
         if (this.state.idteams === 0) {
-            this.props.action.boardAction.AddBoard(TbData)
+            const { history } = this.props
+            // console.log("...",this.state.idboards)
+            this.props.action.boardAction.AddBoard(TbData, history)
         }
         else {
-            this.props.action.teamboardAction.AddTBoard(TbData)
+            const { history } = this.props
+            this.props.action.teamboardAction.AddTBoard(TbData, history)
         }
     }
 
@@ -78,6 +81,14 @@ class TeamBoards extends Component {
                 </option>
             )
         })
+       let idteams = this.props.location.pathname.slice(1);
+        let idteam = idteams.slice(0, -11);
+        let id=parseInt(idteam)
+        let teamName=this.props.teamData.filter((teamData)=>{
+            return teamData.idteams===id
+       
+        })
+       
         return (
 
             <div >
@@ -99,14 +110,14 @@ class TeamBoards extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
+                        <Button color="primary" disabled={this.state.bTitle === ""} onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
                 <center>
                     <div style={{ padding: "15px", margin: "4% 4% auto auto", float: "right", width: "75%", backgroundColor: "#DCDCDC" }}>
                         <h4 style={{ padding: "10px", color: "#026AA7", fontWeight: " bolder", paddingBlockStart: "15px", float: "left", marginLeft: "19px", marginBottom: "-1.5rem" }}>
-                            Team Boards</h4></div>
+                        {teamName.length>0? teamName[0].tName:""} Team Boards</h4></div>
                     <div className="row" style={{ padding: "15px", margin: "auto", float: "right", width: "75%", backgroundColor: "#DCDCDC", marginRight: "4%" }}>
                         {teamboardData}
                         <div className="col-sm-4" style={{ padding: "7px", width: "100%", marginLeft: "1%", WebkitFlex: "0 0 33.333333%", maxWidth: "23.333333%" }}>

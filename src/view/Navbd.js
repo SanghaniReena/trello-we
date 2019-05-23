@@ -1,14 +1,17 @@
 import "../view/style.css"
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarToggler, UncontrolledDropdown } from 'reactstrap';
-import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, Label, ModalHeader } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { bindActionCreators } from "redux";
 import * as boardAction from "../action/BoardsAction";
 import * as teamAction from "../action/TeamsAction"
 import * as userAction from "../action/UserRegAction"
-const createI = require("../img/createi.png");
+
+
+const plus = require("../img/plus.png");
 const trelloIcon = require("../img/trellologo.png");
 class Navbd extends Component {
 
@@ -32,11 +35,10 @@ class Navbd extends Component {
             auth: true,
         };
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         const iduser = localStorage.getItem("iduser")
-        this.props.action.teamAction.FetchTeam(iduser)
-    }
-
+        this.props.action.teamAction.FetchTeam(iduser);
+      }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -80,17 +82,16 @@ class Navbd extends Component {
         }
     }
     handleCreateBoardEvent = () => {
-        debugger
+        
         const idusers = localStorage.getItem("iduser")
         this.toggleModal();
         const bData = {
-            iduser: idusers,
-            bTitle: this.state.bTitle,
-            idteams: this.state.idteams
-
+          iduser: idusers,
+          bTitle: this.state.bTitle,
+          idteams: this.state.idteams
         }
-        this.props.action.boardAction.AddBoard(bData)
-
+        const {history}=this.props    
+        this.props.action.boardAction.AddBoard(bData,history)
     }
     handlnavboardClick = () => {
         const iduser = localStorage.getItem("iduser")
@@ -141,7 +142,7 @@ class Navbd extends Component {
                             </Form>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
+                            <Button color="primary"  disabled={this.state.bTitle===""} onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
                             <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
@@ -161,20 +162,19 @@ class Navbd extends Component {
                             </Form>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.handleCreateTeamEvent.bind(this)}>Create</Button>{' '}
+                            <Button color="primary" disabled={this.state.tName===""} onClick={this.handleCreateTeamEvent.bind(this)}>Create</Button>{' '}
                             <Button color="secondary" onClick={this.toggleTModal}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
 
-                    <Navbar expand="md" style={{ backgroundColor: "#026AA7", fontWeight: "bold" }}>
-                        <a href="/" style={{ background: "white", opacity: "0.5", borderRadius: "9%", padding: "0.5%" }}><img height="25px" width="80px" src={trelloIcon} alt=""></img></a>
+                    <Navbar expand="md" style={{ backgroundColor: "#026AA7", fontWeight: "bold", padding:"0.2% 0% 0.2% 0%",fontSize:"18px" }}>
                         <div className="navbord" onClick={this.handlnavboardClick.bind(this)}>Boards</div>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav style={{ color: "white", fontWeight: "bold", background: "white", opacity: "0.5", borderRadius: "9%" }}>
-                                        <img height="28px" width="28px" src={createI} alt="" style={{ color: "white" }}></img>
+                                        <img height="25px" width="25px" src={plus} alt="" style={{ fill : "white"}}></img>
                                     </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem style={{ textAlign: "center" }} header>Create</DropdownItem>

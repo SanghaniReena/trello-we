@@ -9,9 +9,9 @@ import { bindActionCreators } from "redux";
 import * as boardAction from "../action/BoardsAction";
 import * as teamAction from "../action/TeamsAction"
 import * as userAction from "../action/UserRegAction"
-const createI = require("../img/createi.png");
+const plus = require("../img/plus.png");
 const teamI = require("../img/teami.png");
-const trelloI = require("../img/ticon.jpg");
+const trelloI = require("../img/ticon.png");
 // const homeI = require("../img/home.png");
 const trelloIcon = require("../img/trellologo.png");
 
@@ -19,9 +19,7 @@ class NavbarInside extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-    this.toggleModal = this.toggleModal.bind(this)
-    this.toggleTModal = this.toggleTModal.bind(this)
+   
     this.state = {
       isOpen: false,
       isOpenM: false,
@@ -34,7 +32,11 @@ class NavbarInside extends Component {
       idteams: 0,
       teams: [],
       auth: true,
+      
     };
+    this.toggle = this.toggle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this)
+    this.toggleTModal = this.toggleTModal.bind(this)
   }
   componentDidMount = () => {
     const iduser = localStorage.getItem("iduser")
@@ -88,16 +90,16 @@ class NavbarInside extends Component {
     }
   }
   handleCreateBoardEvent = () => {
+    this.toggleModal();
 
     const idusers = localStorage.getItem("iduser")
-    this.toggleModal();
     const bData = {
       iduser: idusers,
       bTitle: this.state.bTitle,
       idteams: this.state.idteams
     }
-    console.log("bdata", bData)
-    this.props.action.boardAction.AddBoard(bData)
+    const {history}=this.props    
+    this.props.action.boardAction.AddBoard(bData,history)
   }
   handleCreateTeamEvent = () => {
     const idusers = localStorage.getItem("iduser")
@@ -111,13 +113,17 @@ class NavbarInside extends Component {
     this.props.action.teamAction.AddTeam(tData, history)
 
   }
+  handleProfileClick=()=>{
+    const userid=localStorage.getItem("iduser")
+    this.props.history.push("/profile/"+userid)
+  }
   render() {
     const uname = localStorage.getItem("userName")
     let teamData = ""
     teamData = this.props.teamData.map((teamData, key) => {
       return (
         <div className="divstyle" style={{ fontWeight: "bold", fontSize: "120%", marginLeft: "2%" }} key={key} onClick={() => this.handleTeamClick(teamData.idteams)}>
-          <img height="20px" width="21px" src={teamI} color="#F5F5F5" style={{ marginRight: "3%" }} alt=""></img>
+          <img height="25px" width="25px" src={teamI} color="#F5F5F5" style={{ marginRight: "3%" }} alt=""></img>
           {teamData.tName}</div>
       )
     })
@@ -138,7 +144,9 @@ class NavbarInside extends Component {
               <Form>
                 <FormGroup>
                   <Input type="text" name="bTitle" id="bTitle" placeholder="Add Board Title" onChange={(e) => this.handleOnChange("bTitle", e)} />
+                  
                 </FormGroup>
+                
                 <FormGroup>
                   <Label for="teamselect">Select Team</Label>
                   <Input type="select" name="idteams" id="idteams" onChange={(e) => this.handleOnChange("idteams", e)} >
@@ -149,7 +157,7 @@ class NavbarInside extends Component {
               </Form>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
+              <Button color="primary" disabled={this.state.bTitle===""} onClick={this.handleCreateBoardEvent.bind(this)}>Create</Button>{' '}
               <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
             </ModalFooter>
           </Modal>
@@ -168,19 +176,20 @@ class NavbarInside extends Component {
               </Form>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.handleCreateTeamEvent.bind(this)}>Create</Button>{' '}
+              <Button color="primary" disabled={this.state.tName===""} onClick={this.handleCreateTeamEvent.bind(this)}>Create</Button>{' '}
               <Button color="secondary" onClick={this.toggleTModal}>Cancel</Button>
             </ModalFooter>
           </Modal>
 
           <Navbar expand="md" style={{ backgroundColor: "#026AA7", fontWeight: "bold" }}>
-            <a href="/" style={{ background: "white", opacity: "0.5", borderRadius: "9%", padding: "0.5%" }}><img height="25px" width="80px" src={trelloIcon} alt=""></img></a>
+            <a href="/boards" style={{ background: "white", opacity: "0.5", borderRadius: "9%", padding: "0.5%" }}><img height="25px" width="80px" src={trelloIcon} alt=""></img></a>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav style={{ color: "white", fontWeight: "bold", background: "white", opacity: "0.5", borderRadius: "9%" }}>
-                    <img height="28px" width="28px" src={createI} alt="" style={{ color: "white" }}></img>
+                  
+                    <img className="icolor" height="28px" width="28px" src={plus} alt="" ></img>
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem style={{ textAlign: "center" }} header>Create</DropdownItem>
@@ -198,6 +207,9 @@ class NavbarInside extends Component {
                     {uname}
                   </DropdownToggle>
                   <DropdownMenu right>
+                  <DropdownItem onClick={this.handleProfileClick.bind(this)}>
+                      Profile
+                    </DropdownItem>
                     <DropdownItem onClick={this.handleLogout}>
                       Logout
                     </DropdownItem>
@@ -211,7 +223,7 @@ class NavbarInside extends Component {
         <div style={{ width: "15%", float: "left", paddingLeft: "3%", paddingTop: "4%" }}>
           <div  >
             <div className="divstyle" onClick={this.handleClick.bind(this)} style={{ fontWeight: "bold", fontSize: "120%", margin: "2%" }}>
-              <img height="20px" width="20px" src={trelloI} style={{ marginRight: "4%", marginLeft: "3%" }} color="#F5F5F5" alt=""></img>Boards</div>
+              <img height="25px" width="25px" src={trelloI} style={{ margin: "2%" }} color="#F5F5F5" alt=""></img>Boards</div>
             {/*<div className="divstyle" style={{ fontWeight: "bold", fontSize: "120%", marginLeft: "-2%" }} >
     <img height="30px" width="40px" src={homeI} color="#F5F5F5" alt=""></img>Home</div>*/}
             <div style={{ margin: "2%", fontSize: "120%" }}  >Teams</div>

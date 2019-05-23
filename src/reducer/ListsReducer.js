@@ -1,7 +1,8 @@
-import { ADD_LIST, FAILED, FETCH_LIST } from "../action/ListsAction"
+import { ADD_LIST, FAILED, FETCH_LIST, FETCH_ALL_LIST } from "../action/ListsAction"
 const INITIAL_STATE = {
     lists: [],
-    idlist: 0
+    idlist: 0,
+    allList: []
 }
 const handleLists = (state = INITIAL_STATE, action) => {
 
@@ -9,6 +10,11 @@ const handleLists = (state = INITIAL_STATE, action) => {
         case FETCH_LIST:
             {
                 return Object.assign({}, state, { lists: action.data })
+            }
+        case FETCH_ALL_LIST:
+            {
+                debugger
+                return Object.assign({}, state, { allList: action.data })
             }
         case ADD_LIST:
             {

@@ -1,0 +1,35 @@
+div.cmMainDiv{
+    margin: 5%;
+    size: 80%;
+    min-height: 600px;
+    min-width: 700px;
+   
+}
+div.cmTitle{
+    font-size: 20px;
+    font-weight:bold;
+}
+div a.cmSubTitle{
+    text-decoration: underline;
+}
+div a.cmSubTitle:hover{
+    cursor: pointer;
+    color: black;
+}
+div.cmsubFont{
+color:#6B8086;
+margin-bottom: 2%
+
+}
+div.cmAddDesc{
+    min-width:500px;
+    border:none;
+    padding: 2%;
+    padding-top: 1%;
+    min-height: 60px;
+    border-radius: 2%;
+    background: #DDDDDD
+}
+div.cmAddDesc:hover{
+background: #cccccc;
+}

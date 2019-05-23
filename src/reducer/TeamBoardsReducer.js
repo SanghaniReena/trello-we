@@ -1,4 +1,5 @@
-import { Add_TBOARD, FAILED, FETCH_TBOARD, FETCH_IBOARD, EDIT_TBOARD } from "../action/TeamBoardsAction"
+import { Add_TBOARD, EDIT_TBOARD, FAILED, FETCH_IBOARD, FETCH_TBOARD } from "../action/TeamBoardsAction"
+
 
 const INITIAL_STATE = {
     Tboards: [],
@@ -14,17 +15,6 @@ const handleTBoards = (state = INITIAL_STATE, action) => {
                 return Object.assign({}, state, { Tboards: action.data })
             }
 
-        case EDIT_TBOARD:
-            {
-                debugger
-                let idteams = parseInt(action.data.idboards, 10);
-                return Object.assign({}, state, {
-                    Tboards: state.Tboards.map(item => {
-                        return item.idteams === idteams ? action.data : item;
-                    })
-                });
-            }
-
         case FETCH_IBOARD:
             {
 
@@ -35,6 +25,11 @@ const handleTBoards = (state = INITIAL_STATE, action) => {
                 const newdata = state.Tboards.concat(action.data);
                 return Object.assign({}, state, { Tboards: newdata })
             }
+        case EDIT_TBOARD:
+        {
+            console.log("edit data",action.data)
+            return Object.assign({}, state, { teamboards: action.data })            
+        }
         case FAILED:
             {
                 return Object.assign({}, state, { error_msg: action.data.error_msg });

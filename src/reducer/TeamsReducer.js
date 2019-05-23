@@ -9,9 +9,10 @@ const handleteams = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_TEAM:
             {
+
                 return Object.assign({}, state, { teams: action.data })
             }
-        
+
         case ADD_TEAM:
             {
                 const newdata = state.teams.concat(action.data);
