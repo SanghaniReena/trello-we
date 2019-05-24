@@ -1,9 +1,10 @@
 div.profileUpr{
-    height:200px;
+    height:max-content;
     background: #f4f5f7;
 }
 div.profileRound{
-    background-color: #dfe1e6;
+    background-color:#dfe1e6;
+    box-shadow: 0 1px 0 0 #1c3a0a;;
     border-radius: 25em;
     cursor: default;
     display: block;
@@ -25,7 +26,6 @@ div.mainprodiv{
     justify-content: center;
     margin: 0 auto;
     max-width: 650px;
-
     padding: 32px;
     position: relative;
 
@@ -37,7 +37,6 @@ span.spanpro{
     font-size: 50px;
     line-height: 86px;
     flex-direction: column;
-
     position: absolute;
     min-width: -webkit-fill-available;
 }
@@ -54,8 +53,7 @@ a.apro{
 div.proDetails{
     max-width: fit-content;
         flex-direction: column;
-        margin-left: 6%;
-
+        margin-left: 4%;
 }
 h1{
     font-size: 24px;
@@ -70,10 +68,104 @@ button.proBtn{
     background: #ebecf0;
     padding: 4% 6%;
     border-radius: 4%;
-    
     box-shadow: grey 1px 1px 1px;
 }
 button.proBtn:hover{
     background: #dfe1e6;
+
+}
+div.lowerbtn{
+    background-color: #f4f5f7;
+    border-bottom: 1px solid #dfe1e6;
+    position: relative;
+    text-align: center;
+
+}
+button.proBtn1{
+    border: none;
+    min-width: max-content;
+    font-weight: 500;
+    background: #ebecf0;
+    padding: 0.3% 1%;
+    margin-right: 1%;
+    border-radius: 6%;
+}
+button.proBtn1:hover{
+    background-color: #fff;
+    border-color: #fff;
+    cursor: default;
+    }
+div.profileLower{
+    margin: 0 auto;
+    max-width: 850px;
+    padding: 32px;
+    position: relative;
+
+}
+div.prTitle{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+div.singleteam{
+    border-bottom: 1px solid rgba(9,30,66,.13);
+    padding: 2px 0;
+    position: relative;
+    margin-left: 4%
+}
+div.inst{
+    color:#172b4d;
+    font-size: 15px;
+    padding: 0.5% 1%
+}
+input.inptpro{
+    margin-top: -3%;
+    font-size: 14px;
+    padding: 1%;
+    max-width: 950px;
+    min-width: 250px;
+}
+label.labelpro{
+    margin-top: 2%;
+    margin-bottom: -2%;
+    font-weight: 700;
+    color: #172b4d;
+    font-size: 14px;
+}
+textarea.inptpro{
+    margin-top: -1%;
+    font-size: 14px;
+    padding: 1%;
+    max-width: 950px;
+    min-width: 250px;
+}
+button.proBtn2{
+    background-color: #5aac44;
+    box-shadow: 0 1px 0 0 #3f6f21;
+    border: none;
+    color: #fff;
+    padding: 0.3% 4%;
+    margin-right: 1%;
+    border-radius: 6%;
+    font-weight: 500;
+}
+button.proBtn2:hover{
+    background: #3f6f21;
+    box-shadow: 0 1px 0 0 #1c3a0a;
+}
+button.proBtn3:hover{
+    background: #cac5c5;
+    box-shadow: 0 1px 0 0 #0000;
+}
+button.proBtn3{
+    background-color: #ebecf0;
+    box-shadow: 0 1px 0 0 rgba(9,30,66,.13);
+    border: none;
+    color: black;
+    margin-left: 5%;
+    padding: 0.3% 4%;
+    margin-right: 1%;
+    border-radius: 6%;
+    font-weight: 500;
 
 }

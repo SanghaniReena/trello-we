@@ -42,7 +42,7 @@ class Cards extends Component {
             idcards: 0,
             idboards: 0,
             idlist: 0,
-            rem:0,
+            rem: 0,
             showStb: false,
             showDel: false,
             time: '12:00'
@@ -52,11 +52,11 @@ class Cards extends Component {
         this.onTimeChange = this.onTimeChange.bind(this);
     }
     componentWillMount() {
-        
+
         const iduser = localStorage.getItem("iduser")
         this.props.action.boardAction.FetchAllBoard(iduser);
-       
-      
+
+
     }
 
     componentDidMount() {
@@ -73,7 +73,7 @@ class Cards extends Component {
         var year = new Date().getFullYear()
         var defaltDate = month + "/" + dated + "/" + year
         this.setState({
-            date:defaltDate
+            date: defaltDate
         })
     }
     toggled() {
@@ -82,8 +82,8 @@ class Cards extends Component {
         var year = new Date().getFullYear()
         var defaltDate = month + "/" + dated + "/" + year
         this.setState({
-            date:defaltDate,
-            rem:0
+            date: defaltDate,
+            rem: 0
         })
         this.setState({
             ddropdownOpen: !this.state.ddropdownOpen,
@@ -116,7 +116,7 @@ class Cards extends Component {
     }
 
     handleOnChange = (key, e) => {
-        
+
         this.setState({
             [key]: e.target.value
         })
@@ -297,29 +297,29 @@ class Cards extends Component {
         this.props.onClose()
         console.log("move dataa", moveData)
     }
-    handleDueDatesub=()=>{
-        let ddData={}
-        if(this.state.rem===0){
-            ddData={
-                idcards:this.props.idcards,
-                date:this.state.date,
-                time:this.state.time,
-                reminder:1
+    handleDueDatesub = () => {
+        let ddData = {}
+        if (this.state.rem === 0) {
+            ddData = {
+                idcards: this.props.idcards,
+                date: this.state.date,
+                time: this.state.time,
+                reminder: 1
             }
         }
-        else{
-            ddData={
-                idcards:this.props.idcards,
-                date:this.state.date,
-                time:this.state.time,
-                reminder:this.state.rem
+        else {
+            ddData = {
+                idcards: this.props.idcards,
+                date: this.state.date,
+                time: this.state.time,
+                reminder: this.state.rem
             }
         }
         this.props.action.cardAction.AddDueDate(ddData)
         this.toggled()
     }
-    handleDueDateDel=()=>{
-            
+    handleDueDateDel = () => {
+
         this.props.action.cardAction.DeleteDuedate(this.props.idcards)
         this.toggled()
 
@@ -396,7 +396,7 @@ class Cards extends Component {
         } else {
             boardlist = <option >No Lists</option>
         }
-        
+
         return (
             <div>
                 <Modal open={this.props.open} onClose={this.props.onClose} idcards={this.props.idcards} center>
@@ -405,14 +405,14 @@ class Cards extends Component {
                             <div className="cmTitle" ><img alt="" height="30px" width="30px" src={copy} style={{ marginRight: "5px" }} />{(singleCard.length > 0)
                                 ? singleCard[0].cTitle
                                 : (this.props.archived[0] ? this.props.archived[0].cTitle : "")}</div>
-                            <div className="cmsubFont">in list <a href="xx" className="cmSubTitle" style={{ textDecoration: "underline" }}>
+                            <div className="cmsubFont">in list <a className="cmSubTitle" style={{ textDecoration: "underline",color:"blue" }}>
                                 {(singlelist.length > 0) ?
                                     singlelist[0].lName
                                     : (this.props.archived[0] ? this.props.archived[0].lName : "")}</a></div>
-                                    <div className="cmsubFont2" onClick={this.toggled}>
-                                    {this.props.duedateData.length>0?
-                                        "Due Date "
-                                        +this.props.duedateData[0].date+" at "+this.props.duedateData[0].time:""}</div>
+                            <div className="cmsubFont2" onClick={this.toggled}>
+                                {this.props.duedateData.length > 0 ?
+                                    "Due Date "
+                                    + this.props.duedateData[0].date + " at " + this.props.duedateData[0].time : ""}</div>
                             <div>
                                 <div className="cmTitle"><img alt="" height="30px" width="30px" src={description} style={{ marginRight: "5px" }} />Description</div>
                                 {this.state.show ?
@@ -504,12 +504,12 @@ class Cards extends Component {
                                                         </div>
 
                                                     </div>
-                                                </div>                                                
-                                                    <div className="calender">
-                                                        <Calendar
-                                                            onChange={(e) => this.handleOnChangeDate("date", e)}
-                                                        />
-                                                    </div>
+                                                </div>
+                                                <div className="calender">
+                                                    <Calendar
+                                                        onChange={(e) => this.handleOnChangeDate("date", e)}
+                                                    />
+                                                </div>
                                                 <FormGroup>
                                                     <div className="rem"><Label >Set Reminder</Label></div>
                                                     <Input style={{ margin: "2%", marginLeft: "4%", width: "92%" }} defaultValue="1" type="select" disabled={this.props.allListData.length === 0} name="idlist" id="idlist" onChange={(e) => this.handleOnChange("rem", e)} >
@@ -524,9 +524,9 @@ class Cards extends Component {
                                                         <option value="9">2 days Before</option>
                                                     </Input>
                                                     <div className="reText">Reminders will be sent to all members and watchers of this card.</div>
-                                                    <div style={{ paddingLeft: "5%",marginTop:"1%" }} >
-                                                    <Button onClick={this.handleDueDatesub.bind(this)} color="success" style={{padding:"1% 4%",maxHeight:"30px",fontSize:"15px",fontWeight:"bold",alignContent:"center"}}>Save</Button>
-                                                    <Button  onClick={this.handleDueDateDel.bind(this)} color="danger" style={{float:"right",padding:"1% 4%",maxHeight:"30px",fontSize:"15px",fontWeight:"bold",alignContent:"center",marginRight:"3%"}}>Remove</Button>
+                                                    <div style={{ paddingLeft: "5%", marginTop: "1%" }} >
+                                                        <Button onClick={this.handleDueDatesub.bind(this)} color="success" style={{ padding: "1% 4%", maxHeight: "30px", fontSize: "15px", fontWeight: "bold", alignContent: "center" }}>Save</Button>
+                                                        <Button onClick={this.handleDueDateDel.bind(this)} color="danger" style={{ float: "right", padding: "1% 4%", maxHeight: "30px", fontSize: "15px", fontWeight: "bold", alignContent: "center", marginRight: "3%" }}>Remove</Button>
 
                                                     </div>
                                                 </FormGroup>
@@ -598,7 +598,7 @@ const mapStateToProps = (state) => {
         archived: state.CardsReducer.archived,
         allBoardsData: state.BoardReducer.allBoards,
         allListData: state.ListsReducer.allList,
-        duedateData:state.CardsReducer.duedate
+        duedateData: state.CardsReducer.duedate
     }
 }
 const mapDispatchToProps = (dispatch) => ({

@@ -130,7 +130,7 @@ class UserRegistration extends Component {
         <NavbarMain></NavbarMain>
         <div className="RegForm">
           <h4 className="Header">Create a Trello Account or <Link to="/login" path="/login">Log in</Link> to your account</h4>
-          <div className="Form" style={{ marginTop: "3%" }}>
+          <div className="Form" style={{ marginTop: "6%" }}>
 
             <Form onKeyPress={this.enterPress.bind(this)} >
               <FormGroup>

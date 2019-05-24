@@ -1,6 +1,7 @@
 .RegForm{
     display: block;
     margin:auto;
+    vertical-align: middle;
 }
 .Form{
     margin: auto;

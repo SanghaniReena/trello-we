@@ -117,7 +117,9 @@ class BoardDash extends Component {
     }
     this.props.action.cardAction.AddCard(cardData)
   }
-  handleAddClick = (data) => {
+  handleAddClick = (data,e) => {
+    debugger
+    e.preventDefault()
     const listData = {
       lName: this.state.lName,
       iduser: data.iduser,
@@ -125,6 +127,8 @@ class BoardDash extends Component {
       idteams: data.idteams
     }
     this.props.action.listAction.AddList(listData);
+    this.togglep()
+
   }
   toggle() {
     this.setState({
@@ -172,9 +176,7 @@ class BoardDash extends Component {
     let idboards = data.idboards
     const { history } = this.props;
     this.props.action.teamboardAction.EditTBoard(idboards, idteams, history)
-
   }
-
   onDragStart = (e, idcards) => {
     e.dataTransfer.setData("idcards", idcards)
   }
@@ -191,9 +193,7 @@ class BoardDash extends Component {
       tName: this.state.tName,
       tDesc: this.state.tDesc
     }
-    
     const { history } = this.props;
-
     this.props.action.teamAction.AddTeam(tData, history)
 
   }
@@ -353,7 +353,7 @@ class BoardDash extends Component {
             <Popover style={{ width: "max-content" }} placement="bottom" isOpen={this.state.isOpen} target="Popover1" toggle={this.togglep}>
               <form className="listForm">
                 <input max="25" className="inputForm" type="text" name="lName" id="lName" placeholder="Add list Title" onChange={(e) => this.handleOnChangelist("lName", e)} />
-                <button className="but" disabled={this.state.lName === ""} onClick={(e) => this.handleAddClick(data, e)}>Add List</button>
+                <button className="but" disabled={this.state.lName === ""} onClick={(e)=>this.handleAddClick(data,e)}>Add List</button>
               </form>
             </Popover>
           </div>

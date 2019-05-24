@@ -18,8 +18,7 @@ const handleLists = (state = INITIAL_STATE, action) => {
             }
         case ADD_LIST:
             {
-
-                const newdata = state.boards.concat(action.data);
+                const newdata = state.lists.concat(action.data);
                 return Object.assign({}, state, { lists: newdata })
 
             }

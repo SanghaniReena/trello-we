@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import * as userAction from "../action/UserRegAction"
 import NavbarMain from "../view/NavbarMain"
 
+import "../view/style.css"
 
 class UserLogin extends Component {
     constructor(props) {
@@ -132,7 +133,7 @@ class UserLogin extends Component {
             <div>
                 <NavbarMain></NavbarMain>
                 <div className="RegForm">
-                    <h4 className="Header" style={{ marginBottom: "3%" }}>Welcome to Trello! Log in to Trello or <Link to="/signup" path="/signup">Create an account</Link></h4>
+                    <h4 className="Header" style={{ marginBottom: "6%" }}>Welcome to Trello! Log in to Trello or <Link to="/signup" path="/signup">Create an account</Link></h4>
                     <div className="Form" >
                         <Form onKeyPress={this.enterPress.bind(this)} >
                             <FormGroup>
